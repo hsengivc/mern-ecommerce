@@ -1,11 +1,32 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect, FunctionComponent } from "react";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { Rating } from "../components";
-import products from "../products";
+import { IProduct } from "../interfaces/Product";
 
-export const ProductScreen = ({ match }: any) => {
-  const product = products.find((p) => p._id === match.params.id);
+interface IMatchParams {
+  id: string;
+}
+
+interface ProductScreenProps extends RouteComponentProps<IMatchParams> {}
+
+export const ProductScreen: FunctionComponent<ProductScreenProps> = ({
+  match: {
+    params: { id },
+  },
+}: ProductScreenProps) => {
+  const [product, setProduct] = useState<IProduct>();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get<IProduct>(`/api/products/${id}`);
+      setProduct(data);
+    };
+
+    fetchProduct();
+  }, [id]);
+
   if (!product) return null;
   return (
     <>
@@ -19,7 +40,7 @@ export const ProductScreen = ({ match }: any) => {
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h3>{product?.name}</h3>
+              <h3>{product.name}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
