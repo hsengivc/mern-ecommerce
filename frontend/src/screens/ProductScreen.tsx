@@ -3,7 +3,7 @@ import React, { useState, useEffect, FunctionComponent } from "react";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Rating } from "../components";
-import { IProduct } from "../components/interfaces/Product";
+import { IProduct } from "../interfaces/Product";
 
 interface IMatchParams {
   id: string;

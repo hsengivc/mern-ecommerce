@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { Product } from "../components";
-import { IProduct } from "../components/interfaces/Product";
+import { IProduct } from "../interfaces/Product";
 
 export const HomeScreen = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
