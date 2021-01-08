@@ -25,4 +25,3 @@ export interface ProductWithReview extends IProduct {
 }
 
 export interface IProductDocument extends ProductWithReview, Document {}
-export interface IProductModel extends Model<IProductDocument> {}

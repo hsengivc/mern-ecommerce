@@ -8,4 +8,3 @@ export interface IUser {
 }
 
 export interface IUserDocument extends IUser, Document {}
-export interface IUserModel extends Model<IUserDocument> {}
