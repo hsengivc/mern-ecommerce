@@ -1,20 +1,21 @@
 import bcrypt from "bcryptjs";
+import { IUser } from "../interfaces";
 
-const users = [
+const users: IUser[] = [
   {
     name: "Admin User",
-    email: "admin@admin.com",
+    email: "admin@example.com",
     password: bcrypt.hashSync("1234", 10),
     isAdmin: true,
   },
   {
     name: "John Snow",
-    email: "admin@admin.com",
+    email: "john@snow.com",
     password: bcrypt.hashSync("1234", 10),
   },
   {
     name: "Lannister",
-    email: "admin@admin.com",
+    email: "lwan@lannister.com",
     password: bcrypt.hashSync("1234", 10),
   },
 ];

@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.ts",
+  "type": "module",
   "scripts": {
-    "start": "ts-node-dev --respawn backend/server.ts"
+    "start": "ts-node-dev --respawn backend/server.ts",
+    "data:import": "ts-node-dev backend/seeder.ts",
+    "data:destroy": "ts-node-dev backend/seeder.ts -d"
   },
   "author": "",
   "license": "ISC",

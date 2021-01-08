@@ -1,14 +1,5 @@
-export interface IProduct {
-  name: string;
-  image: string;
-  description: string;
-  brand: string;
-  category: string;
-  price: number;
-  countInStock: number;
-  rating: number;
-  numReviews: number;
-}
+import { Document, Model } from "mongoose";
+import { IProduct } from "../interfaces";
 
 const products: IProduct[] = [
   {
