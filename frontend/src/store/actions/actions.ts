@@ -3,6 +3,12 @@ import { Dispatch } from "redux";
 import { ProductList } from "../constants";
 import { ProductListActionTypes } from "../types";
 
+const errorMessage = (error: any) => {
+  return error.response && error.response.data.message
+    ? error.response.data.message
+    : error.message;
+};
+
 export const listProducts = () => async (
   dispatch: Dispatch<ProductListActionTypes>
 ) => {
@@ -18,10 +24,7 @@ export const listProducts = () => async (
   } catch (error) {
     dispatch({
       type: ProductList.PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: errorMessage(error),
     });
   }
 };

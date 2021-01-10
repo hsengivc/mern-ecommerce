@@ -18,7 +18,7 @@ interface IGetProductSuccessAction extends Action {
 
 interface IGetProductFailAction extends Action {
   type: typeof ProductList.PRODUCT_LIST_FAIL;
-  payload: String;
+  payload: any;
 }
 
 export type ProductListActionTypes =
