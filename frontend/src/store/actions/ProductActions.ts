@@ -1,7 +1,6 @@
 import axios from "axios";
-import { Dispatch } from "redux";
-import { ProductList } from "../constants";
-import { ProductListActionTypes } from "../types";
+import { ActionType } from "../types";
+import { ProductListActionTypes } from "../enums";
 
 const errorMessage = (error: any) => {
   return error.response && error.response.data.message
@@ -9,21 +8,19 @@ const errorMessage = (error: any) => {
     : error.message;
 };
 
-export const listProducts = () => async (
-  dispatch: Dispatch<ProductListActionTypes>
-) => {
+export const listProducts = (): ActionType => async (dispatch) => {
   try {
-    dispatch({ type: ProductList.PRODUCT_LIST_REQUEST });
+    dispatch({ type: ProductListActionTypes.PRODUCT_LIST_REQUEST });
 
     const { data } = await axios.get("/api/products");
 
     dispatch({
-      type: ProductList.PRODUCT_LIST_SUCCESS,
+      type: ProductListActionTypes.PRODUCT_LIST_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: ProductList.PRODUCT_LIST_FAIL,
+      type: ProductListActionTypes.PRODUCT_LIST_FAIL,
       payload: errorMessage(error),
     });
   }

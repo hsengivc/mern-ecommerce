@@ -3,24 +3,24 @@ import React, { useState, useEffect, FunctionComponent } from "react";
 import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Rating } from "../components";
-import { IProduct } from "../interfaces/Product";
+import { Product as ProductType } from "../store/types";
 
-interface IMatchParams {
+interface MatchParams {
   id: string;
 }
 
-interface ProductScreenProps extends RouteComponentProps<IMatchParams> {}
+interface ProductScreenProps extends RouteComponentProps<MatchParams> {}
 
 export const ProductScreen: FunctionComponent<ProductScreenProps> = ({
   match: {
     params: { id },
   },
 }: ProductScreenProps) => {
-  const [product, setProduct] = useState<IProduct>();
+  const [product, setProduct] = useState<ProductType>();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const { data } = await axios.get<IProduct>(`/api/products/${id}`);
+      const { data } = await axios.get<ProductType>(`/api/products/${id}`);
       setProduct(data);
     };
 
