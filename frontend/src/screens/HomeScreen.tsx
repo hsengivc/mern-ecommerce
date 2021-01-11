@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import { Product, Loader, Message } from "../components";
 import { listProducts } from "../store/actions";
-import { DispatchType, States } from "../store/types";
+import { DispatchType, ReduxStates } from "../store/types";
 
 export const HomeScreen = () => {
   const dispatch = useDispatch<DispatchType>();
   const { products, loading, error } = useSelector(
-    (state: States) => state.ProductList
+    (state: ReduxStates) => state.ProductList
   );
 
   useEffect(() => {

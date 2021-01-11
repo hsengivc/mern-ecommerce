@@ -14,16 +14,16 @@ export interface ProductDetailsState {
   error?: undefined;
 }
 
-export interface States {
+export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
 }
 
-export type DispatchType = ThunkDispatch<States, unknown, Action<string>>;
+export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;
 
 export type ActionType = ThunkAction<
   Promise<void>,
-  States,
+  ReduxStates,
   unknown,
   Action<string>
 >;
