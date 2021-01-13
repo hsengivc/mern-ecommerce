@@ -1,5 +1,5 @@
 import { Document, Model } from "mongoose";
-import { IProduct } from "../interfaces";
+import { IProduct } from "../types";
 
 const products: IProduct[] = [
   {

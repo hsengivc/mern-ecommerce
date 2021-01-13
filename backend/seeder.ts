@@ -5,7 +5,7 @@ import users from "./data/user";
 import products from "./data/products";
 import { User, Product, Order } from "./models";
 import { connectDB } from "./config";
-import { IUserDocument, IReview } from "./interfaces";
+import { UserDocument, IReview } from "./types";
 
 dotenv.config();
 connectDB();
@@ -18,7 +18,7 @@ const importData = async () => {
 
     const createUsers = await User.insertMany(users);
 
-    const adminUser: IUserDocument = createUsers[0]._id;
+    const adminUser: UserDocument = createUsers[0]._id;
 
     const sampleProducts = products.map((product) => {
       let reviews: IReview[] = [];

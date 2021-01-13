@@ -1,5 +1,5 @@
 import { Model, Document } from "mongoose";
-import { IUserDocument } from ".";
+import { UserDocument } from ".";
 
 export interface IProduct {
   name: string;
@@ -20,7 +20,7 @@ export interface IReview {
 }
 
 export interface ProductWithReview extends IProduct {
-  user: IUserDocument;
+  user: UserDocument;
   reviews: IReview[];
 }
 
