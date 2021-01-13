@@ -7,4 +7,7 @@ export interface IUser {
   isAdmin?: boolean;
 }
 
-export interface IUserDocument extends IUser, Document {}
+export interface IUserDocument extends IUser, Document {
+  matchPassword: any;
+}
+export interface UserModel extends Model<IUserDocument> {}
