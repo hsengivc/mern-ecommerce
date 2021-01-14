@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { Cart } from ".";
+import { Cart, TokenUser } from ".";
 import { Product } from "./Product";
 
 export interface ProductListState {
@@ -19,10 +19,16 @@ export interface CartItemsState {
   cartItems: Cart[];
 }
 
+export interface UserLoginState {
+  userInfo?: TokenUser;
+  loading?: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
   Cart: CartItemsState;
+  UserLogin: UserLoginState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;

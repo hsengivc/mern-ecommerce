@@ -1,12 +1,7 @@
 import axios from "axios";
 import { ActionType, Product } from "../types";
 import { ProductListActionTypes, ProductDetailsActionTypes } from "../enums";
-
-const errorMessage = (error: any) => {
-  return error.response && error.response.data.message
-    ? error.response.data.message
-    : error.message;
-};
+import { errorHandler } from "../utils";
 
 export const listProducts = (): ActionType => async (dispatch) => {
   try {
@@ -21,7 +16,7 @@ export const listProducts = (): ActionType => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ProductListActionTypes.PRODUCT_LIST_FAIL,
-      payload: errorMessage(error),
+      payload: errorHandler(error),
     });
   }
 };
@@ -39,7 +34,7 @@ export const listProductDetails = (id: string): ActionType => async (
   } catch (error) {
     dispatch({
       type: ProductDetailsActionTypes.PRODUCT_DETAILS_FAIL,
-      payload: errorMessage(error),
+      payload: errorHandler(error),
     });
   }
 };
