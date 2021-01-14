@@ -1,21 +1,21 @@
-export enum ProductDetailsActionTypes {
+export enum ProductDetailsActions {
   PRODUCT_DETAILS_REQUEST = "PRODUCT_DETAILS_REQUEST",
   PRODUCT_DETAILS_SUCCESS = "PRODUCT_DETAILS_SUCCESS",
   PRODUCT_DETAILS_FAIL = "PRODUCT_DETAILS_FAIL",
 }
 
-export enum ProductListActionTypes {
+export enum ProductListActions {
   PRODUCT_LIST_REQUEST = "PRODUCT_LIST_REQUEST",
   PRODUCT_LIST_SUCCESS = "PRODUCT_LIST_SUCCESS",
   PRODUCT_LIST_FAIL = "PRODUCT_LIST_FAIL",
 }
 
-export enum CartActionTypes {
+export enum CartActions {
   CART_ADD_ITEM = "CART_ADD_ITEM",
   CART_REMOVE_ITEM = "CART_REMOVE_ITEM",
 }
 
-export enum UserActionTypes {
+export enum UserActions {
   USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST",
   USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS",
   USER_LOGIN_FAIL = "USER_LOGIN_FAIL",

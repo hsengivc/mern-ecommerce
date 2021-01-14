@@ -1,23 +1,23 @@
 import { Action } from "redux";
 import { TokenUser } from ".";
-import { UserActionTypes } from "../enums";
+import { UserActions } from "../enums";
 
 export interface UserLoginRequestAction extends Action {
-  type: UserActionTypes.USER_LOGIN_REQUEST;
+  type: UserActions.USER_LOGIN_REQUEST;
 }
 
 export interface UserLoginSuccessAction extends Action {
-  type: UserActionTypes.USER_LOGIN_SUCCESS;
+  type: UserActions.USER_LOGIN_SUCCESS;
   payload: TokenUser;
 }
 
 export interface UserLoginFailAction extends Action {
-  type: UserActionTypes.USER_LOGIN_FAIL;
+  type: UserActions.USER_LOGIN_FAIL;
   payload: any;
 }
 
 export interface UserLoginLogoutAction extends Action {
-  type: UserActionTypes.USER_LOGIN_LOGOUT;
+  type: UserActions.USER_LOGIN_LOGOUT;
   payload: {};
 }
 

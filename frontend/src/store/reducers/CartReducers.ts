@@ -1,4 +1,4 @@
-import { CartActionTypes } from "../enums";
+import { CartActions } from "../enums";
 import { CartItemsState, CartItemAction } from "../types";
 
 const initialState: CartItemsState = {
@@ -10,7 +10,7 @@ export const cartReducer = (
   action: CartItemAction
 ) => {
   switch (action.type) {
-    case CartActionTypes.CART_ADD_ITEM:
+    case CartActions.CART_ADD_ITEM:
       const item = action.payload;
       const existItem = state.cartItems.find((i) => i.product === item.product);
 
@@ -27,7 +27,7 @@ export const cartReducer = (
           cartItems: [...state.cartItems, item],
         };
       }
-    case CartActionTypes.CART_REMOVE_ITEM:
+    case CartActions.CART_REMOVE_ITEM:
       return {
         ...state,
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),

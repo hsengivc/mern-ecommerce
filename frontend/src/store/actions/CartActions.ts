@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CartActionTypes } from "../enums";
+import { CartActions } from "../enums";
 import { ActionType, Product } from "../types";
 
 export const addToCart = (id: string, qty: number): ActionType => async (
@@ -9,7 +9,7 @@ export const addToCart = (id: string, qty: number): ActionType => async (
   const { data } = await axios.get<Product>(`/api/products/${id}`);
 
   dispatch({
-    type: CartActionTypes.CART_ADD_ITEM,
+    type: CartActions.CART_ADD_ITEM,
     payload: {
       product: data._id,
       name: data.name,
@@ -28,7 +28,7 @@ export const removeFromCart = (id: string): ActionType => async (
   getState
 ) => {
   dispatch({
-    type: CartActionTypes.CART_REMOVE_ITEM,
+    type: CartActions.CART_REMOVE_ITEM,
     payload: id,
   });
 

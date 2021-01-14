@@ -9,7 +9,6 @@ import {
   Form,
   Button,
   Card,
-  CarouselItem,
 } from "react-bootstrap";
 import { Message } from "../components";
 import { addToCart, removeFromCart } from "../store/actions";

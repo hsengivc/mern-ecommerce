@@ -1,17 +1,17 @@
 import { Product } from "./Product";
-import { ProductListActionTypes } from "../enums";
+import { ProductListActions } from "../enums";
 
 export interface ProductsListRequestAction {
-  type: ProductListActionTypes.PRODUCT_LIST_REQUEST;
+  type: ProductListActions.PRODUCT_LIST_REQUEST;
 }
 
 export interface ProductsListSuccessAction {
-  type: ProductListActionTypes.PRODUCT_LIST_SUCCESS;
+  type: ProductListActions.PRODUCT_LIST_SUCCESS;
   payload: Product[];
 }
 
 export interface ProductsListFailureAction {
-  type: ProductListActionTypes.PRODUCT_LIST_FAIL;
+  type: ProductListActions.PRODUCT_LIST_FAIL;
   payload: any;
 }
 

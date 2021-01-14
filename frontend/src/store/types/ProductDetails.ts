@@ -1,18 +1,18 @@
 import { Action } from "redux";
 import { Product } from "./Product";
-import { ProductDetailsActionTypes } from "../enums";
+import { ProductDetailsActions } from "../enums";
 
 export interface ProductDetailsRequestAction extends Action {
-  type: typeof ProductDetailsActionTypes.PRODUCT_DETAILS_REQUEST;
+  type: typeof ProductDetailsActions.PRODUCT_DETAILS_REQUEST;
 }
 
 export interface ProductDetailsSuccessAction {
-  type: ProductDetailsActionTypes.PRODUCT_DETAILS_SUCCESS;
+  type: ProductDetailsActions.PRODUCT_DETAILS_SUCCESS;
   payload: Product;
 }
 
 export interface ProductDetailsFailureAction {
-  type: ProductDetailsActionTypes.PRODUCT_DETAILS_FAIL;
+  type: ProductDetailsActions.PRODUCT_DETAILS_FAIL;
   payload: any;
 }
 

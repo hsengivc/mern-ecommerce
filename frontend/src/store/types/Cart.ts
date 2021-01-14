@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { CartActionTypes } from "../enums";
+import { CartActions } from "../enums";
 
 export interface Cart {
   product: string;
@@ -11,12 +11,12 @@ export interface Cart {
 }
 
 export interface CartAddItemAction {
-  type: CartActionTypes.CART_ADD_ITEM;
+  type: CartActions.CART_ADD_ITEM;
   payload: Cart;
 }
 
 export interface CartRemoveItemAction {
-  type: CartActionTypes.CART_REMOVE_ITEM;
+  type: CartActions.CART_REMOVE_ITEM;
   payload: string;
 }
 
