@@ -24,7 +24,7 @@ const userInfo = userInfoFromStorage ? JSON.parse(userInfoFromStorage) : null;
 
 const initialState = {
   Cart: { cartItems },
-  UserLoginInfo: { userInfo },
+  UserLogin: { userInfo },
 };
 
 const middleware = [thunk];
