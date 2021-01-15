@@ -33,3 +33,8 @@ export const login = (email: string, password: string): ActionType => async (
     });
   }
 };
+
+export const logout = (): ActionType => async (dispatch) => {
+  dispatch({ type: UserActions.USER_LOGIN_LOGOUT });
+  localStorage.removeItem("userInfo");
+};

@@ -19,8 +19,10 @@ const reducer = combineReducers<ReduxStates>({
 const cartItemsFromStorage = localStorage.getItem("cartItems");
 const cartItems = cartItemsFromStorage ? JSON.parse(cartItemsFromStorage) : [];
 
-const userInfoFromStorage = localStorage.getItem("cartItems");
-const userInfo = userInfoFromStorage ? JSON.parse(userInfoFromStorage) : null;
+const userInfoFromStorage = localStorage.getItem("userInfo");
+const userInfo = userInfoFromStorage
+  ? JSON.parse(userInfoFromStorage)
+  : undefined;
 
 const initialState = {
   Cart: { cartItems },
