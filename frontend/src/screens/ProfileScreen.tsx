@@ -35,11 +35,11 @@ export const ProfileScreen = ({
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user || success) {
-        dispatch(getUserDetails("profile"));
+      if (!user || success || !user.name) {
         dispatch({
           type: UserUpdateActions.USER_UPDATE_RESET,
         });
+        dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
