@@ -5,3 +5,6 @@ export * from "./ProductList";
 export * from "./Cart";
 export * from "./UserLogin";
 export * from "./User";
+export * from "./UserRegister";
+export * from "./UserDetails";
+export * from "./UserProfileUpdate";

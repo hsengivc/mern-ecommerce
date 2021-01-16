@@ -6,6 +6,9 @@ import {
   productDetailsReducer,
   cartReducer,
   userLoginReducer,
+  userRegisterReducer,
+  userDetailsReducer,
+  userProfileUpdateReducer,
 } from "./store/reducers";
 import { ReduxStates } from "./store/types";
 
@@ -14,6 +17,9 @@ const reducer = combineReducers<ReduxStates>({
   ProductDetails: productDetailsReducer,
   Cart: cartReducer,
   UserLogin: userLoginReducer,
+  UserRegister: userRegisterReducer,
+  UserDetails: userDetailsReducer,
+  UserProfileUpdate: userProfileUpdateReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems");
