@@ -5,3 +5,4 @@ export * from "./Rating";
 export * from "./Loader";
 export * from "./Message";
 export * from "./FormContainer";
+export * from "./CheckoutSteps";
