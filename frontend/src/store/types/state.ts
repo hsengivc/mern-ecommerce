@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { Cart, TokenUser, User } from ".";
+import { Cart, ShippingAddress, TokenUser, User } from ".";
 import { Product } from "./Product";
 
 export interface ProductListState {
@@ -17,6 +17,7 @@ export interface ProductDetailsState {
 
 export interface CartItemsState {
   cartItems: Cart[];
+  shippingAddress?: ShippingAddress;
 }
 
 export interface UserLoginState {

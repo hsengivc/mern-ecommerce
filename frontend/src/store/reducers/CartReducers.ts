@@ -1,4 +1,4 @@
-import { CartActions } from "../enums";
+import { CartActions, ShippingAddressAction } from "../enums";
 import { CartItemsState, CartItemAction } from "../types";
 
 const initialState: CartItemsState = {
@@ -31,6 +31,11 @@ export const cartReducer = (
       return {
         ...state,
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+      };
+    case ShippingAddressAction.CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
     default:
       return state;

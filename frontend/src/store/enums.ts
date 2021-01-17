@@ -40,3 +40,7 @@ export enum UserUpdateActions {
   USER_UPDATE_FAIL = "USER_UPDATE_FAIL",
   USER_UPDATE_RESET = "USER_UPDATE_RESET",
 }
+
+export enum ShippingAddressAction {
+  CART_SAVE_SHIPPING_ADDRESS = "CART_SAVE_SHIPPING_ADDRESS",
+}

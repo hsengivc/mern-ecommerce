@@ -9,6 +9,7 @@ import {
   LoginScreen,
   RegisterScreen,
   ProfileScreen,
+  ShippingScreen,
 } from "./screens";
 
 export const App = () => (
@@ -22,6 +23,7 @@ export const App = () => (
         <Route path="/register" component={RegisterScreen} />
         <Route path="/product/:id" component={ProductScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
+        <Route path="/shipping" component={ShippingScreen} />
       </Container>
     </main>
     <Footer />
