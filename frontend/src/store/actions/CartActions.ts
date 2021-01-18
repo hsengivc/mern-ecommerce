@@ -1,5 +1,9 @@
 import axios from "axios";
-import { CartActions, ShippingAddressAction } from "../enums";
+import {
+  CartActions,
+  ShippingAddressAction,
+  PaymentMethodAction,
+} from "../enums";
 import { ActionType, Product, ShippingAddress } from "../types";
 
 export const addToCart = (id: string, qty: number): ActionType => async (
@@ -44,4 +48,15 @@ export const saveShippingAddress = (
   });
 
   localStorage.setItem("shippingAddress", JSON.stringify(data));
+};
+
+export const savePaymentMethod = (data: string): ActionType => async (
+  dispatch
+) => {
+  dispatch({
+    type: PaymentMethodAction.CART_SAVE_PAYMENT_METHOD,
+    payload: data,
+  });
+
+  localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
