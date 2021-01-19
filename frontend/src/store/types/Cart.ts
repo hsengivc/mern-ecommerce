@@ -41,6 +41,11 @@ export interface SavePaymentMethodAction {
   payload: string;
 }
 
+// export interface CartSavePaymentMethodAction {
+// 	type: CartActionTypes.CART_SAVE_PAYMENT_METHOD;
+// 	payload: string;
+// }
+
 export type CartItemAction =
   | CartAddItemAction
   | CartRemoveItemAction

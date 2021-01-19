@@ -18,6 +18,7 @@ export interface ProductDetailsState {
 export interface CartItemsState {
   cartItems: Cart[];
   shippingAddress?: ShippingAddress;
+  paymentMethod?: string;
 }
 
 export interface UserLoginState {
