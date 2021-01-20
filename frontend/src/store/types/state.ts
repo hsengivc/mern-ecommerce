@@ -1,7 +1,14 @@
 import { Action } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { Cart, ShippingAddress, TokenUser, User } from ".";
-import { Product } from "./Product";
+import {
+  Cart,
+  Order,
+  ShippingAddress,
+  TokenUser,
+  User,
+  Product,
+  CreateOrder,
+} from ".";
 
 export interface ProductListState {
   loading: boolean;
@@ -39,6 +46,13 @@ export interface UserDetailsState {
   error?: any;
 }
 
+export interface CreateOrderState {
+  loading: boolean;
+  order?: CreateOrder;
+  success?: boolean;
+  error?: any;
+}
+
 export interface UserUpdateProfileState {
   userInfo?: TokenUser;
   loading?: boolean;
@@ -53,6 +67,7 @@ export interface ReduxStates {
   UserRegister: UserRegisterState;
   UserDetails: UserDetailsState;
   UserProfileUpdate: UserUpdateProfileState;
+  CreateOrder: CreateOrderState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;

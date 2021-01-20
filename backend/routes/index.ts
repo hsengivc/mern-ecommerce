@@ -1,3 +1,4 @@
 import productRoutes from "./productRoutes";
 import userRoutes from "./userRoutes";
-export { productRoutes, userRoutes };
+import orderRoutes from "./orderRoutes";
+export { productRoutes, userRoutes, orderRoutes };

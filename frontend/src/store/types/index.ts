@@ -8,3 +8,4 @@ export * from "./User";
 export * from "./UserRegister";
 export * from "./UserDetails";
 export * from "./UserProfileUpdate";
+export * from "./Order";

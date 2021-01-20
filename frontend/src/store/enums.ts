@@ -13,6 +13,7 @@ export enum ProductListActions {
 export enum CartActions {
   CART_ADD_ITEM = "CART_ADD_ITEM",
   CART_REMOVE_ITEM = "CART_REMOVE_ITEM",
+  CART_ITEMS_RESET = "CART_ITEMS_RESET",
 }
 
 export enum UserActions {
@@ -47,4 +48,10 @@ export enum ShippingAddressAction {
 
 export enum PaymentMethodAction {
   CART_SAVE_PAYMENT_METHOD = "CART_SAVE_PAYMENT_METHOD",
+}
+
+export enum CreateOrderAction {
+  ORDER_CREATE_REQUEST = "ORDER_CREATE_REQUEST",
+  ORDER_CREATE_SUCCESS = "ORDER_CREATE_SUCCESS",
+  ORDER_CREATE_FAIL = "ORDER_CREATE_FAIL",
 }
