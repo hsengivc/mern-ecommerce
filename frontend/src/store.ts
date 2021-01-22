@@ -10,6 +10,7 @@ import {
   userDetailsReducer,
   userProfileUpdateReducer,
   orderCreateReducer,
+  orderDetailsReducer,
 } from "./store/reducers";
 import { ReduxStates } from "./store/types";
 
@@ -22,6 +23,7 @@ const reducer = combineReducers<ReduxStates>({
   UserDetails: userDetailsReducer,
   UserProfileUpdate: userProfileUpdateReducer,
   CreateOrder: orderCreateReducer,
+  OrderDetails: orderDetailsReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems");
