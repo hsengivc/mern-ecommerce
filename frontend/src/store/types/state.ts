@@ -66,6 +66,12 @@ export interface OrderDetailsState {
   order?: OrderDetails;
   error?: any;
 }
+
+export interface OrderPayState {
+  loading?: boolean;
+  success?: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -76,6 +82,7 @@ export interface ReduxStates {
   UserProfileUpdate: UserUpdateProfileState;
   CreateOrder: CreateOrderState;
   OrderDetails: OrderDetailsState;
+  OrderPay: OrderPayState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;

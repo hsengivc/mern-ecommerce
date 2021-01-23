@@ -1,9 +1,15 @@
-import { CreateOrderAction, OrderDetailsAction } from "../enums";
+import {
+  CreateOrderAction,
+  OrderDetailsAction,
+  OrderPayAction,
+} from "../enums";
 import {
   CreateOrderState,
   OrderCreateAction,
   OrderDetailsState,
   OrderDetaislActionType,
+  OrderPayActionType,
+  OrderPayState,
 } from "../types";
 
 const orderCreateInitialState: CreateOrderState = {
@@ -41,6 +47,28 @@ export const orderDetailsReducer = (
       return { loading: false, success: true, order: action.payload };
     case OrderDetailsAction.ORDER_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const orderPayInitialState: OrderPayState = {
+  loading: false,
+};
+
+export const orderPayReducer = (
+  state = orderPayInitialState,
+  action: OrderPayActionType
+) => {
+  switch (action.type) {
+    case OrderPayAction.ORDER_PAY_REQUEST:
+      return { loading: true };
+    case OrderPayAction.ORDER_PAY_SUCCESS:
+      return { loading: false, success: true };
+    case OrderPayAction.ORDER_PAY_FAIL:
+      return { loading: false, error: action.payload };
+    case OrderPayAction.ORDER_PAY_RESET:
+      return {};
     default:
       return state;
   }

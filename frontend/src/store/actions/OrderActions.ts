@@ -1,6 +1,17 @@
 import axios from "axios";
-import { CartActions, CreateOrderAction, OrderDetailsAction } from "../enums";
-import { ActionType, Order, CreateOrder, OrderDetails } from "../types";
+import {
+  CartActions,
+  CreateOrderAction,
+  OrderDetailsAction,
+  OrderPayAction,
+} from "../enums";
+import {
+  ActionType,
+  Order,
+  CreateOrder,
+  OrderDetails,
+  PaymentResult,
+} from "../types";
 import { errorHandler } from "../utils";
 
 export const createOrder = (order: Order): ActionType => async (
@@ -58,6 +69,31 @@ export const getOrderDetails = (id: string): ActionType => async (
   } catch (error) {
     dispatch({
       type: OrderDetailsAction.ORDER_DETAILS_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const payOrder = (
+  orderId: string,
+  paymentResult: PaymentResult
+): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({ type: OrderPayAction.ORDER_PAY_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    const config = {
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: `Bearer ${userInfo?.token}`,
+      },
+    };
+    await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config);
+    dispatch({
+      type: OrderPayAction.ORDER_PAY_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderPayAction.ORDER_PAY_FAIL,
       payload: errorHandler(error),
     });
   }
