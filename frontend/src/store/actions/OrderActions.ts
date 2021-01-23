@@ -12,7 +12,7 @@ import {
   OrderDetails,
   PaymentResult,
 } from "../types";
-import { errorHandler } from "../utils";
+import { authConfig, errorHandler } from "../utils";
 
 export const createOrder = (order: Order): ActionType => async (
   dispatch,
@@ -55,13 +55,12 @@ export const getOrderDetails = (id: string): ActionType => async (
   try {
     dispatch({ type: OrderDetailsAction.ORDER_DETAILS_REQUEST });
     const { userInfo } = getState().UserLogin;
-    const config = {
-      headers: {
-        "Content-Type": "Application/json",
-        Authorization: `Bearer ${userInfo?.token}`,
-      },
-    };
-    const { data } = await axios.get<OrderDetails>(`/api/orders/${id}`, config);
+    if (!userInfo?.token) throw new Error("Token is not valid");
+
+    const { data } = await axios.get<OrderDetails>(
+      `/api/orders/${id}`,
+      authConfig(userInfo.token)
+    );
     dispatch({
       type: OrderDetailsAction.ORDER_DETAILS_SUCCESS,
       payload: data,
@@ -81,13 +80,12 @@ export const payOrder = (
   try {
     dispatch({ type: OrderPayAction.ORDER_PAY_REQUEST });
     const { userInfo } = getState().UserLogin;
-    const config = {
-      headers: {
-        "Content-Type": "Application/json",
-        Authorization: `Bearer ${userInfo?.token}`,
-      },
-    };
-    await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config);
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    await axios.put(
+      `/api/orders/${orderId}/pay`,
+      paymentResult,
+      authConfig(userInfo.token)
+    );
     dispatch({
       type: OrderPayAction.ORDER_PAY_SUCCESS,
     });

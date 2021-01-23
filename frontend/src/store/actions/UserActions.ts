@@ -6,7 +6,7 @@ import {
   UserUpdateActions,
 } from "../enums";
 import { ActionType, TokenUser, User, UserPassword } from "../types";
-import { config, errorHandler } from "../utils";
+import { authConfig, config, errorHandler } from "../utils";
 
 export const login = (email: string, password: string): ActionType => async (
   dispatch
@@ -77,13 +77,11 @@ export const getUserDetails = (id: string): ActionType => async (
   try {
     dispatch({ type: UserDetailsActions.USER_DETAILS_REQUEST });
     const { userInfo } = getState().UserLogin;
-    const config = {
-      headers: {
-        "Content-Type": "Application/json",
-        Authorization: `Bearer ${userInfo?.token}`,
-      },
-    };
-    const { data } = await axios.get<User>(`/api/users/${id}`, config);
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    const { data } = await axios.get<User>(
+      `/api/users/${id}`,
+      authConfig(userInfo.token)
+    );
     dispatch({
       type: UserDetailsActions.USER_DETAILS_SUCCESS,
       payload: data,
@@ -105,16 +103,11 @@ export const updateUserProfile = (user: UserPassword): ActionType => async (
       type: UserUpdateActions.USER_UPDATE_REQUEST,
     });
     const { userInfo } = getState().UserLogin;
-    const config = {
-      headers: {
-        "Content-Type": "Application/json",
-        Authorization: `Bearer ${userInfo?.token}`,
-      },
-    };
+    if (!userInfo?.token) throw new Error("Token is not valid");
     const { data } = await axios.put<TokenUser>(
       `/api/users/profile`,
       user,
-      config
+      authConfig(userInfo.token)
     );
     dispatch({
       type: UserUpdateActions.USER_UPDATE_SUCCESS,
