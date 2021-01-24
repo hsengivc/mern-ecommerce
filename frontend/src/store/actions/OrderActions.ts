@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   CartActions,
   CreateOrderAction,
+  MyOrderListAction,
   OrderDetailsAction,
   OrderPayAction,
 } from "../enums";
@@ -11,6 +12,7 @@ import {
   CreateOrder,
   OrderDetails,
   PaymentResult,
+  MyOrderList,
 } from "../types";
 import { authConfig, errorHandler } from "../utils";
 
@@ -92,6 +94,27 @@ export const payOrder = (
   } catch (error) {
     dispatch({
       type: OrderPayAction.ORDER_PAY_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const myOrderList = (): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({ type: MyOrderListAction.MY_ORDER_LIST_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    const { data } = await axios.get<MyOrderList[]>(
+      `/api/orders/myorders`,
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: MyOrderListAction.MY_ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: MyOrderListAction.MY_ORDER_LIST_FAIL,
       payload: errorHandler(error),
     });
   }

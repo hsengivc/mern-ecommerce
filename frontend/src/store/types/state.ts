@@ -10,6 +10,7 @@ import {
   CreateOrder,
   OrderDetails,
 } from ".";
+import { MyOrderList } from "./MyOrderList";
 
 export interface ProductListState {
   loading: boolean;
@@ -72,6 +73,12 @@ export interface OrderPayState {
   success?: boolean;
   error?: any;
 }
+
+export interface MyOrderListState {
+  orders: MyOrderList[];
+  loading: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -83,6 +90,7 @@ export interface ReduxStates {
   CreateOrder: CreateOrderState;
   OrderDetails: OrderDetailsState;
   OrderPay: OrderPayState;
+  MyOrderList: MyOrderListState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;

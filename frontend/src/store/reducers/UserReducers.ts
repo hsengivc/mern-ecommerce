@@ -89,6 +89,8 @@ export const userDetailsReducer = (
         loading: initialUserDetailsState.loading,
         error: action.payload,
       };
+    case UserDetailsActions.USER_DETAILS_RESET:
+      return { loading: false, orders: [] };
     default:
       return state;
   }

@@ -16,7 +16,12 @@ export interface UserDetailsFailAction extends Action {
   payload: any;
 }
 
+export interface UserDetailsResetAction {
+  type: UserDetailsActions.USER_DETAILS_RESET;
+}
+
 export type UserDetailsActionTypes =
   | UserDetailsRequestAction
   | UserDetailsSuccessAction
-  | UserDetailsFailAction;
+  | UserDetailsFailAction
+  | UserDetailsResetAction;

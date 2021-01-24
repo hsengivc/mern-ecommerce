@@ -4,6 +4,7 @@ import {
   RegisterActions,
   UserDetailsActions,
   UserUpdateActions,
+  MyOrderListAction,
 } from "../enums";
 import { ActionType, TokenUser, User, UserPassword } from "../types";
 import { authConfig, config, errorHandler } from "../utils";
@@ -37,6 +38,8 @@ export const login = (email: string, password: string): ActionType => async (
 
 export const logout = (): ActionType => async (dispatch) => {
   dispatch({ type: UserActions.USER_LOGIN_LOGOUT });
+  dispatch({ type: UserDetailsActions.USER_DETAILS_RESET });
+  dispatch({ type: MyOrderListAction.MY_ORDER_LIST_RESET });
   localStorage.removeItem("userInfo");
 };
 
