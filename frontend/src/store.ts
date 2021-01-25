@@ -30,6 +30,7 @@ const reducer = combineReducers<ReduxStates>({
   OrderPay: orderPayReducer,
   MyOrderList: myOrderListReducer,
   UserList: userListReducer,
+  UserDelete: userDetailsReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems");

@@ -4,6 +4,7 @@ import {
   UserDetailsActions,
   UserUpdateActions,
   UserListActions,
+  UserDeleteActions,
 } from "../enums";
 import {
   UserDetailsActionTypes,
@@ -15,7 +16,9 @@ import {
   UserProfileUpdateActionTypes,
   UserListActionTypes,
   UserListState,
+  UserDeleteState,
 } from "../types";
+import { UserDeleteActionTypes } from "../types/UserDelete";
 
 const initialUserLoginState: UserLoginState = {
   loading: false,
@@ -155,6 +158,32 @@ export const userListReducer = (
       return {
         loading: userListInitialState.loading,
         users: [],
+      };
+    default:
+      return state;
+  }
+};
+
+const userDetleteInitialState: UserDeleteState = {
+  loading: false,
+};
+
+export const userDeleteReducer = (
+  state: UserDeleteState = userDetleteInitialState,
+  action: UserDeleteActionTypes
+) => {
+  switch (action.type) {
+    case UserDeleteActions.USER_DELETE_REQUEST:
+      return { loading: true };
+    case UserDeleteActions.USER_DELETE_SUCCESS:
+      return {
+        loading: userDetleteInitialState.loading,
+        success: true,
+      };
+    case UserDeleteActions.USER_DELETE_FAIL:
+      return {
+        loading: userDetleteInitialState.loading,
+        error: action.payload,
       };
     default:
       return state;

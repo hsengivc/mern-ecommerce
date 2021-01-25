@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 import { Loader, Message } from "../components";
-import { listUsers } from "../store/actions";
+import { deleteUser, listUsers } from "../store/actions";
 import { ReduxStates } from "../store/types";
 
 interface UserListScreenProps extends RouteComponentProps {}
@@ -17,13 +17,17 @@ export const UserListScreen = ({ history }: UserListScreenProps) => {
   );
   const { userInfo } = useSelector((state: ReduxStates) => state.UserLogin);
 
+  const { success: deleteSuccess } = useSelector(
+    (state: ReduxStates) => state.UserDelete
+  );
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) dispatch(listUsers());
     else history.push("/login");
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, deleteSuccess]);
 
   const deleteHandler = (userId: string) => {
-    // if (window.confirm('Are you sure')) dispatch(deleteUser(userId));
+    if (window.confirm("Are you sure")) dispatch(deleteUser(userId));
   };
   return (
     <>

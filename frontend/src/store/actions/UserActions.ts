@@ -6,6 +6,7 @@ import {
   UserUpdateActions,
   MyOrderListAction,
   UserListActions,
+  UserDeleteActions,
 } from "../enums";
 import { ActionType, TokenUser, User, UserPassword } from "../types";
 import { authConfig, config, errorHandler } from "../utils";
@@ -147,6 +148,24 @@ export const listUsers = (): ActionType => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: UserListActions.USER_LIST_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const deleteUser = (id: string): ActionType => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: UserDeleteActions.USER_DELETE_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    await axios.delete(`/api/users/${id}`, authConfig(userInfo.token));
+    dispatch({ type: UserDeleteActions.USER_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: UserDeleteActions.USER_DELETE_FAIL,
       payload: errorHandler(error),
     });
   }
