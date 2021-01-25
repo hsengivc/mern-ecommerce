@@ -12,11 +12,13 @@ const users: IUser[] = [
     name: "John Snow",
     email: "john@snow.com",
     password: bcrypt.hashSync("1234", 10),
+    isAdmin: false,
   },
   {
     name: "Lannister",
     email: "lwan@lannister.com",
     password: bcrypt.hashSync("1234", 10),
+    isAdmin: false,
   },
 ];
 

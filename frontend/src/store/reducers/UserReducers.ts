@@ -3,6 +3,7 @@ import {
   RegisterActions,
   UserDetailsActions,
   UserUpdateActions,
+  UserListActions,
 } from "../enums";
 import {
   UserDetailsActionTypes,
@@ -12,6 +13,8 @@ import {
   UserRegisterState,
   UserUpdateProfileState,
   UserProfileUpdateActionTypes,
+  UserListActionTypes,
+  UserListState,
 } from "../types";
 
 const initialUserLoginState: UserLoginState = {
@@ -120,6 +123,39 @@ export const userProfileUpdateReducer = (
       };
     case UserUpdateActions.USER_UPDATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+const userListInitialState: UserListState = {
+  loading: false,
+  users: [],
+};
+
+export const userListReducer = (
+  state: UserListState = userListInitialState,
+  action: UserListActionTypes
+) => {
+  switch (action.type) {
+    case UserListActions.USER_LIST_REQUEST:
+      return { loading: true, users: [] };
+    case UserListActions.USER_LIST_SUCCESS:
+      return {
+        loading: userListInitialState.loading,
+        users: action.payload,
+      };
+    case UserListActions.USER_LIST_FAIL:
+      return {
+        loading: userListInitialState.loading,
+        error: action.payload,
+        users: state.users,
+      };
+    case UserListActions.USER_LIST_RESET:
+      return {
+        loading: userListInitialState.loading,
+        users: [],
+      };
     default:
       return state;
   }

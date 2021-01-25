@@ -5,6 +5,7 @@ import {
   UserDetailsActions,
   UserUpdateActions,
   MyOrderListAction,
+  UserListActions,
 } from "../enums";
 import { ActionType, TokenUser, User, UserPassword } from "../types";
 import { authConfig, config, errorHandler } from "../utils";
@@ -40,6 +41,7 @@ export const logout = (): ActionType => async (dispatch) => {
   dispatch({ type: UserActions.USER_LOGIN_LOGOUT });
   dispatch({ type: UserDetailsActions.USER_DETAILS_RESET });
   dispatch({ type: MyOrderListAction.MY_ORDER_LIST_RESET });
+  dispatch({ type: UserListActions.USER_LIST_RESET });
   localStorage.removeItem("userInfo");
 };
 
@@ -124,6 +126,27 @@ export const updateUserProfile = (user: UserPassword): ActionType => async (
   } catch (error) {
     dispatch({
       type: UserUpdateActions.USER_UPDATE_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const listUsers = (): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({ type: UserListActions.USER_LIST_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    const { data } = await axios.get<User[]>(
+      `/api/users/`,
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: UserListActions.USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UserListActions.USER_LIST_FAIL,
       payload: errorHandler(error),
     });
   }

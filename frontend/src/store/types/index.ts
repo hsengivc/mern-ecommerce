@@ -12,3 +12,4 @@ export * from "./Order";
 export * from "./OrderDetails";
 export * from "./OrderPay";
 export * from "./MyOrderList";
+export * from "./UserList";
