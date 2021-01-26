@@ -9,3 +9,4 @@ export * from "./PaymentScreen";
 export * from "./PlaceorderScreen";
 export * from "./OrderScreen";
 export * from "./UserListScreen";
+export * from "./UserEditScreen";

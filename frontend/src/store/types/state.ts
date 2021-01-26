@@ -91,6 +91,12 @@ export interface UserDeleteState {
   loading?: boolean;
   error?: any;
 }
+
+export interface UserUpdateByAdminState {
+  loading?: boolean;
+  success?: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -105,6 +111,7 @@ export interface ReduxStates {
   MyOrderList: MyOrderListState;
   UserList: UserListState;
   UserDelete: UserDeleteState;
+  UserUpdate: UserUpdateByAdminState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;
