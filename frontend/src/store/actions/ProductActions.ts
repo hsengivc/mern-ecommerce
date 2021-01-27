@@ -1,7 +1,11 @@
 import axios from "axios";
 import { ActionType, Product } from "../types";
-import { ProductListActions, ProductDetailsActions } from "../enums";
-import { errorHandler } from "../utils";
+import {
+  ProductListActions,
+  ProductDetailsActions,
+  ProductDeleteActions,
+} from "../enums";
+import { authConfig, errorHandler } from "../utils";
 
 export const listProducts = (): ActionType => async (dispatch) => {
   try {
@@ -34,6 +38,26 @@ export const listProductDetails = (id: string): ActionType => async (
   } catch (error) {
     dispatch({
       type: ProductDetailsActions.PRODUCT_DETAILS_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const deleteProduct = (id: string): ActionType => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: ProductDeleteActions.PRODUCT_DELETE_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    await axios.delete(`/api/products/${id}`, authConfig(userInfo.token));
+    dispatch({
+      type: ProductDeleteActions.PRODUCT_DELETE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: ProductDeleteActions.PRODUCT_DELETE_FAIL,
       payload: errorHandler(error),
     });
   }

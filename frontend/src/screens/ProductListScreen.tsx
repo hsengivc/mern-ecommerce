@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 import { Loader, Message } from "../components";
-import { listProducts } from "../store/actions";
+import { deleteProduct, listProducts } from "../store/actions";
 import { ReduxStates } from "../store/types";
 
 interface MatchParams {
@@ -24,15 +24,22 @@ export const ProductListScreen = ({
   const { loading, products, error } = useSelector(
     (state: ReduxStates) => state.ProductList
   );
+
+  const {
+    success: successDelete,
+    loading: loadingDelete,
+    error: errorDelete,
+  } = useSelector((state: ReduxStates) => state.ProductDelete);
+
   const { userInfo } = useSelector((state: ReduxStates) => state.UserLogin);
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) dispatch(listProducts());
     else history.push("/login");
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (userId: string) => {
-    // delete products
+    dispatch(deleteProduct(userId));
   };
   const createProductHandler = () => {
     // dispatch create product
@@ -50,7 +57,8 @@ export const ProductListScreen = ({
           </Button>
         </Col>
       </Row>
-
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (

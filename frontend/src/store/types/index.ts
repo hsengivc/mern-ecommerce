@@ -14,3 +14,4 @@ export * from "./OrderPay";
 export * from "./MyOrderList";
 export * from "./UserList";
 export * from "./UserUpdate";
+export * from "./ProductDelete";

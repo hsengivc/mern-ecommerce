@@ -3,8 +3,14 @@ import {
   ProductDetailsAction,
   ProductListState,
   ProductDetailsState,
+  ProductDeleteState,
+  ProductDeleteActionTypes,
 } from "../types";
-import { ProductListActions, ProductDetailsActions } from "../enums";
+import {
+  ProductListActions,
+  ProductDetailsActions,
+  ProductDeleteActions,
+} from "../enums";
 
 const initialListState: ProductListState = {
   products: [],
@@ -53,6 +59,31 @@ export const productDetailsReducer = (
       return {
         loading: initialDetailsState.loading,
         product: initialDetailsState.product,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const initialProductDeleteState: ProductDeleteState = {
+  loading: false,
+};
+
+export const productDeleteReducer = (
+  state: ProductDeleteState = initialProductDeleteState,
+  action: ProductDeleteActionTypes
+) => {
+  switch (action.type) {
+    case ProductDeleteActions.PRODUCT_DELETE_REQUEST:
+      return { loading: true };
+    case ProductDeleteActions.PRODUCT_DELETE_SUCCESS:
+      return {
+        loading: initialProductDeleteState.loading,
+        success: true,
+      };
+    case ProductDeleteActions.PRODUCT_DELETE_FAIL:
+      return {
         error: action.payload,
       };
     default:
