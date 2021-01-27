@@ -5,11 +5,17 @@ import {
   ProductDetailsState,
   ProductDeleteState,
   ProductDeleteActionTypes,
+  ProductCreateState,
+  ProductCreateActionTypes,
+  ProductUpdateState,
+  ProductUpdateActionTypes,
 } from "../types";
 import {
   ProductListActions,
   ProductDetailsActions,
   ProductDeleteActions,
+  ProductCreateActions,
+  ProductUpdateActions,
 } from "../enums";
 
 const initialListState: ProductListState = {
@@ -86,6 +92,62 @@ export const productDeleteReducer = (
       return {
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+const initialProductCreateState: ProductCreateState = {
+  loading: false,
+};
+
+export const productCreateReducer = (
+  state: ProductCreateState = initialProductCreateState,
+  action: ProductCreateActionTypes
+) => {
+  switch (action.type) {
+    case ProductCreateActions.PRODUCT_CREATE_REQUEST:
+      return { loading: true };
+    case ProductCreateActions.PRODUCT_CREATE_SUCCESS:
+      return {
+        loading: initialProductCreateState.loading,
+        success: true,
+        product: action.payload,
+      };
+    case ProductCreateActions.PRODUCT_CREATE_FAIL:
+      return {
+        error: action.payload,
+      };
+    case ProductCreateActions.PRODUCT_CREATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+const initialProductUpdateState: ProductUpdateState = {
+  loading: false,
+};
+
+export const productUpdateReducer = (
+  state: ProductUpdateState = initialProductUpdateState,
+  action: ProductUpdateActionTypes
+) => {
+  switch (action.type) {
+    case ProductUpdateActions.PRODUCT_UPDATE_REQUEST:
+      return { loading: true };
+    case ProductUpdateActions.PRODUCT_UPDATE_SUCCESS:
+      return {
+        loading: initialProductUpdateState.loading,
+        success: true,
+        product: action.payload,
+      };
+    case ProductUpdateActions.PRODUCT_UPDATE_FAIL:
+      return {
+        error: action.payload,
+      };
+    case ProductUpdateActions.PRODUCT_UPDATE_RESET:
+      return {};
     default:
       return state;
   }

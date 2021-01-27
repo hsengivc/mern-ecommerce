@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { RouteComponentProps } from "react-router-dom";
 import { Loader, Message } from "../components";
-import { deleteProduct, listProducts } from "../store/actions";
+import { createProduct, deleteProduct, listProducts } from "../store/actions";
+import { ProductCreateActions } from "../store/enums";
 import { ReduxStates } from "../store/types";
 
 interface MatchParams {
@@ -31,18 +32,36 @@ export const ProductListScreen = ({
     error: errorDelete,
   } = useSelector((state: ReduxStates) => state.ProductDelete);
 
+  const {
+    success: successCreate,
+    product: createdProduct,
+    loading: loadingCreate,
+    error: errorCreate,
+  } = useSelector((state: ReduxStates) => state.ProductCreate);
+
   const { userInfo } = useSelector((state: ReduxStates) => state.UserLogin);
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) dispatch(listProducts());
-    else history.push("/login");
-  }, [dispatch, history, userInfo, successDelete]);
+    dispatch({ type: ProductCreateActions.PRODUCT_CREATE_RESET });
+    if (!userInfo?.isAdmin) history.push("/login");
+
+    if (successCreate && createdProduct) {
+      history.push(`/admin/product/${createdProduct._id}/edit`);
+    } else dispatch(listProducts());
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdProduct,
+  ]);
 
   const deleteHandler = (userId: string) => {
     dispatch(deleteProduct(userId));
   };
   const createProductHandler = () => {
-    // dispatch create product
+    dispatch(createProduct());
   };
 
   return (
@@ -57,8 +76,9 @@ export const ProductListScreen = ({
           </Button>
         </Col>
       </Row>
-      {loadingDelete && <Loader />}
-      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+      {loadingDelete || (loadingCreate && <Loader />)}
+      {errorDelete ||
+        (errorCreate && <Message variant="danger">{errorDelete}</Message>)}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -80,7 +100,7 @@ export const ProductListScreen = ({
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
-                <td>${product.name}</td>
+                <td>${product.price}</td>
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>

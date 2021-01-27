@@ -15,3 +15,5 @@ export * from "./MyOrderList";
 export * from "./UserList";
 export * from "./UserUpdate";
 export * from "./ProductDelete";
+export * from "./ProductCreate";
+export * from "./ProductUpdate";

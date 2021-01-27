@@ -1,9 +1,11 @@
 import axios from "axios";
-import { ActionType, Product } from "../types";
+import { ActionType, Product, UpdateProductInput } from "../types";
 import {
   ProductListActions,
   ProductDetailsActions,
   ProductDeleteActions,
+  ProductCreateActions,
+  ProductUpdateActions,
 } from "../enums";
 import { authConfig, errorHandler } from "../utils";
 
@@ -58,6 +60,52 @@ export const deleteProduct = (id: string): ActionType => async (
   } catch (error) {
     dispatch({
       type: ProductDeleteActions.PRODUCT_DELETE_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const createProduct = (): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ProductCreateActions.PRODUCT_CREATE_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    const { data } = await axios.post<Product>(
+      `/api/products/`,
+      {},
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: ProductCreateActions.PRODUCT_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ProductCreateActions.PRODUCT_CREATE_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const updateProduct = (
+  product: UpdateProductInput
+): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ProductUpdateActions.PRODUCT_UPDATE_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    const { data } = await axios.put<Product>(
+      `/api/products/${product._id}`,
+      product,
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: ProductUpdateActions.PRODUCT_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ProductUpdateActions.PRODUCT_UPDATE_FAIL,
       payload: errorHandler(error),
     });
   }

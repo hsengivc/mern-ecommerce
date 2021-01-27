@@ -103,6 +103,20 @@ export interface ProductDeleteState {
   loading?: boolean;
   error?: any;
 }
+
+export interface ProductCreateState {
+  success?: boolean;
+  product?: Product;
+  loading?: boolean;
+  error?: any;
+}
+
+export interface ProductUpdateState {
+  success?: boolean;
+  product?: Product;
+  loading?: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -119,6 +133,8 @@ export interface ReduxStates {
   UserDelete: UserDeleteState;
   UserUpdate: UserUpdateByAdminState;
   ProductDelete: ProductDeleteState;
+  ProductCreate: ProductCreateState;
+  ProductUpdate: ProductUpdateState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;
