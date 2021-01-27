@@ -15,6 +15,7 @@ import {
   OrderScreen,
   UserListScreen,
   UserEditScreen,
+  ProductListScreen,
 } from "./screens";
 
 export const App = () => (
@@ -34,6 +35,7 @@ export const App = () => (
         <Route path="/order/:id" component={OrderScreen} />
         <Route path="/admin/userlist" component={UserListScreen} />
         <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+        <Route path="/admin/productlist" component={ProductListScreen} />
       </Container>
     </main>
     <Footer />
