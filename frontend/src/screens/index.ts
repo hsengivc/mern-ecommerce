@@ -11,3 +11,4 @@ export * from "./OrderScreen";
 export * from "./UserListScreen";
 export * from "./UserEditScreen";
 export * from "./ProductListScreen";
+export * from "./ProductEditScreen";
