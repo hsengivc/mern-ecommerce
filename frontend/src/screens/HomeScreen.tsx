@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import { Product, Loader, Message, Paginate } from "../components";
+import {
+  Product,
+  Loader,
+  Message,
+  Paginate,
+  ProductCarousel,
+} from "../components";
 import { listProducts } from "../store/actions";
 import { DispatchType, ReduxStates } from "../store/types";
-import { RouteComponentProps } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 
 interface MatchParams {
   keyword: string;
@@ -33,6 +39,13 @@ export const HomeScreen = ({
     else
       return (
         <>
+          {!keyword ? (
+            <ProductCarousel />
+          ) : (
+            <Link to="/" className="btn btn-dark">
+              Go Back
+            </Link>
+          )}
           <Row>
             {products.map((product) => (
               <Col sm={12} md={6} lg={4} xl={3} key={product._id}>

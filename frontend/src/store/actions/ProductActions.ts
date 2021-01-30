@@ -7,6 +7,7 @@ import {
   ProductCreateActions,
   ProductUpdateActions,
   ProductCreateReviewActions,
+  TopProductActions,
 } from "../enums";
 import { authConfig, errorHandler } from "../utils";
 
@@ -140,6 +141,22 @@ export const createProductReview = (
   } catch (error) {
     dispatch({
       type: ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const listTopProducts = (): ActionType => async (dispatch) => {
+  try {
+    dispatch({ type: TopProductActions.PRODUCT_TOP_REQUEST });
+    const { data } = await axios.get<Product[]>(`/api/products/top`);
+    dispatch({
+      type: TopProductActions.PRODUCT_TOP_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: TopProductActions.PRODUCT_TOP_FAIL,
       payload: errorHandler(error),
     });
   }

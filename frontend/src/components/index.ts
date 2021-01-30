@@ -8,3 +8,4 @@ export * from "./FormContainer";
 export * from "./CheckoutSteps";
 export * from "./SearchBox";
 export * from "./Paginate";
+export * from "./ProductCarousel";

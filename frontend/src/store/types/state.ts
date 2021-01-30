@@ -137,6 +137,13 @@ export interface ProductCreateReviewState {
   loading?: boolean;
   error?: any;
 }
+
+export interface TopProductState {
+  products: Product[];
+  loading?: boolean;
+  error?: undefined;
+}
+
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -158,6 +165,7 @@ export interface ReduxStates {
   OrderList: OrderListState;
   OrderDeliver: OrderDeliverState;
   ProductReview: ProductCreateReviewState;
+  TopProduct: TopProductState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;

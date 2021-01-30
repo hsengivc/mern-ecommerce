@@ -11,6 +11,8 @@ import {
   ProductUpdateActionTypes,
   ProductCreateReviewState,
   ProductCreateReviewActionTypes,
+  TopProductState,
+  TopProductActionTypes,
 } from "../types";
 import {
   ProductListActions,
@@ -19,6 +21,7 @@ import {
   ProductCreateActions,
   ProductUpdateActions,
   ProductCreateReviewActions,
+  TopProductActions,
 } from "../enums";
 
 const initialListState: ProductListState = {
@@ -183,6 +186,33 @@ export const productCreateReviewReducer = (
       };
     case ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+const initialTopProductState: TopProductState = {
+  products: [],
+  loading: false,
+};
+
+export const topProductRatedReducer = (
+  state: TopProductState = initialTopProductState,
+  action: TopProductActionTypes
+) => {
+  switch (action.type) {
+    case TopProductActions.PRODUCT_TOP_REQUEST:
+      return { loading: true, products: initialTopProductState.products };
+    case TopProductActions.PRODUCT_TOP_SUCCESS:
+      return {
+        loading: initialTopProductState.loading,
+        products: action.payload,
+      };
+    case TopProductActions.PRODUCT_TOP_FAIL:
+      return {
+        products: initialTopProductState.products,
+        error: action.payload,
+      };
     default:
       return state;
   }

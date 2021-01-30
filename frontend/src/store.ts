@@ -21,6 +21,7 @@ import {
   orderListReducer,
   orderDeliverReducer,
   productCreateReviewReducer,
+  topProductRatedReducer,
 } from "./store/reducers";
 import { ReduxStates } from "./store/types";
 
@@ -45,6 +46,7 @@ const reducer = combineReducers<ReduxStates>({
   OrderList: orderListReducer,
   OrderDeliver: orderDeliverReducer,
   ProductReview: productCreateReviewReducer,
+  TopProduct: topProductRatedReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems");
