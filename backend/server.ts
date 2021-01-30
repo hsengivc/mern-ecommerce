@@ -6,8 +6,10 @@ import { connectDB } from "./config";
 import { productRoutes, userRoutes, orderRoutes, uploadRoutes } from "./routes";
 import { errorHandler, notFound } from "./middleware";
 import path from "path";
+import morgan from "morgan";
 
 const app = express();
+if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 dotenv.config();
 
 connectDB();

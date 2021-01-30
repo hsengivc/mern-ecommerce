@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/morgan": "^1.9.2",
     "@types/multer": "^1.4.5",
     "bcryptjs": "^2.4.3",
     "colorts": "^0.1.63",
@@ -20,6 +21,7 @@
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.10",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2"
   },
   "devDependencies": {
