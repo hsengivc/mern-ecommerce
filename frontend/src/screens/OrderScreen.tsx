@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Col, ListGroup, Row, Image, Card } from "react-bootstrap";
+import { Col, ListGroup, Row, Image, Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader, Message } from "../components";
 import { DispatchType, PaymentResult, ReduxStates } from "../store/types";
-import { getOrderDetails, payOrder } from "../store/actions";
+import { getOrderDetails, payOrder, deliverOrder } from "../store/actions";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
-import { OrderPayAction } from "../store/enums";
+import { OrderDeliverActions, OrderPayAction } from "../store/enums";
 interface MatchParams {
   id: string;
 }
@@ -18,6 +18,7 @@ export const OrderScreen = ({
   match: {
     params: { id },
   },
+  history,
 }: OrderScreenProps) => {
   const orderId = id;
 
@@ -32,7 +33,14 @@ export const OrderScreen = ({
     (state: ReduxStates) => state.OrderPay
   );
 
+  const { loading: loadingDeliver, success: successDeliver } = useSelector(
+    (state: ReduxStates) => state.OrderDeliver
+  );
+
+  const { userInfo } = useSelector((state: ReduxStates) => state.UserLogin);
+
   useEffect(() => {
+    if (!userInfo) history.push("/login");
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/config/paypal");
       const script = document.createElement("script");
@@ -45,8 +53,9 @@ export const OrderScreen = ({
       document.body.appendChild(script);
     };
 
-    if (successPay || !order || order._id !== orderId) {
+    if (successPay || !order || order._id !== orderId || successDeliver) {
       dispatch({ type: OrderPayAction.ORDER_PAY_RESET });
+      dispatch({ type: OrderDeliverActions.ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -55,11 +64,17 @@ export const OrderScreen = ({
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successPay, successDeliver, userInfo, history]);
 
   const successPaymentHandler = (paymentResult: PaymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(orderId));
+  };
+
+  const addDecimals = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
 
   return loading ? (
     <Loader />
@@ -148,25 +163,25 @@ export const OrderScreen = ({
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${order.itemsPrice}</Col>
+                  <Col>${addDecimals(order.itemsPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${order.shippingPrice}</Col>
+                  <Col>${addDecimals(order.shippingPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${order.taxPrice}</Col>
+                  <Col>${addDecimals(order.taxPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${order.totalPrice}</Col>
+                  <Col>${addDecimals(order.totalPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               {!order.isPaid && (
@@ -182,6 +197,23 @@ export const OrderScreen = ({
                   )}
                 </ListGroup.Item>
               )}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    {loadingDeliver ? (
+                      <Loader />
+                    ) : (
+                      <Button
+                        onClick={deliverHandler}
+                        className="btn btn-block"
+                      >
+                        Mark As delivered
+                      </Button>
+                    )}
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>
