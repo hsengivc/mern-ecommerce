@@ -10,7 +10,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Loader, Message, Rating } from "../components";
+import { Loader, Message, Meta, Rating } from "../components";
 import { DispatchType, ReduxStates } from "../store/types";
 import { listProductDetails, createProductReview } from "../store/actions";
 import { ProductCreateReviewActions } from "../store/enums";
@@ -71,6 +71,7 @@ export const ProductScreen: FunctionComponent<ProductScreenProps> = ({
     else
       return (
         <>
+          <Meta title={product.name} />
           <Row>
             <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />

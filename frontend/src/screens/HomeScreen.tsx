@@ -7,6 +7,7 @@ import {
   Message,
   Paginate,
   ProductCarousel,
+  Meta,
 } from "../components";
 import { listProducts } from "../store/actions";
 import { DispatchType, ReduxStates } from "../store/types";
@@ -65,6 +66,7 @@ export const HomeScreen = ({
   };
   return (
     <>
+      <Meta />
       <h1>Latest Products</h1>
       {productsList()}
     </>

@@ -9,3 +9,4 @@ export * from "./CheckoutSteps";
 export * from "./SearchBox";
 export * from "./Paginate";
 export * from "./ProductCarousel";
+export * from "./Meta";
