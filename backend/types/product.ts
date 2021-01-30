@@ -14,14 +14,17 @@ export interface IProduct {
 }
 
 export interface IReview {
+  user: string;
   name: string;
-  rating: string;
+  rating: number;
   comment: string;
 }
 
 export interface ProductWithReview extends IProduct {
-  user: UserDocument;
+  user: string;
   reviews: IReview[];
 }
 
 export interface IProductDocument extends ProductWithReview, Document {}
+
+export interface ProductModel extends Model<IProductDocument> {}
