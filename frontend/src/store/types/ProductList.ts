@@ -7,7 +7,7 @@ export interface ProductsListRequestAction {
 
 export interface ProductsListSuccessAction {
   type: ProductListActions.PRODUCT_LIST_SUCCESS;
-  payload: Product[];
+  payload: { products: Product[]; pages: number; page: number };
 }
 
 export interface ProductsListFailureAction {

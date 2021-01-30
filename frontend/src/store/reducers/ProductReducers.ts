@@ -26,10 +26,6 @@ const initialListState: ProductListState = {
   loading: false,
 };
 
-const initialDetailsState: ProductDetailsState = {
-  loading: false,
-};
-
 /* Product List **/
 export const productListReducer = (
   state: ProductListState = initialListState,
@@ -39,7 +35,12 @@ export const productListReducer = (
     case ProductListActions.PRODUCT_LIST_REQUEST:
       return { loading: true, products: initialListState.products };
     case ProductListActions.PRODUCT_LIST_SUCCESS:
-      return { loading: initialListState.loading, products: action.payload };
+      return {
+        loading: initialListState.loading,
+        products: action.payload.products,
+        pages: action.payload.pages,
+        page: action.payload.page,
+      };
     case ProductListActions.PRODUCT_LIST_FAIL:
       return {
         loading: initialListState.loading,
@@ -49,6 +50,10 @@ export const productListReducer = (
     default:
       return state;
   }
+};
+
+const initialDetailsState: ProductDetailsState = {
+  loading: false,
 };
 
 /* Product Details **/

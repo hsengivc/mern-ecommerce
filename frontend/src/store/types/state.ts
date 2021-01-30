@@ -14,8 +14,10 @@ import {
 import { MyOrderList } from "./MyOrderList";
 
 export interface ProductListState {
-  loading: boolean;
   products: Product[];
+  pages?: number;
+  page?: number;
+  loading: boolean;
   error?: undefined;
 }
 
