@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../store/actions";
 import { DispatchType, ReduxStates } from "../store/types";
+import { SearchBox } from ".";
 
 export const Header = () => {
   const dispatch = useDispatch<DispatchType>();
@@ -18,6 +19,7 @@ export const Header = () => {
           <Navbar.Brand>ProShop</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <SearchBox />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <LinkContainer to="/cart">

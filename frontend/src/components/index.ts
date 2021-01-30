@@ -6,3 +6,4 @@ export * from "./Loader";
 export * from "./Message";
 export * from "./FormContainer";
 export * from "./CheckoutSteps";
+export * from "./SearchBox";

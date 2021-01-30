@@ -8,7 +8,15 @@ import { Request, Response } from "../types";
  * @access Public
  */
 const getProducts = asyncHandler(async (req: Request, res: Response) => {
-  const products = await Product.find({});
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        } as any,
+      }
+    : {};
+  const products = await Product.find({ ...keyword });
   res.json(products);
 });
 

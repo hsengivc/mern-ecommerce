@@ -10,11 +10,15 @@ import {
 } from "../enums";
 import { authConfig, errorHandler } from "../utils";
 
-export const listProducts = (): ActionType => async (dispatch) => {
+export const listProducts = (keyword: string = ""): ActionType => async (
+  dispatch
+) => {
   try {
     dispatch({ type: ProductListActions.PRODUCT_LIST_REQUEST });
 
-    const { data } = await axios.get<Product[]>("/api/products");
+    const { data } = await axios.get<Product[]>(
+      `/api/products?keyword=${keyword}`
+    );
 
     dispatch({
       type: ProductListActions.PRODUCT_LIST_SUCCESS,

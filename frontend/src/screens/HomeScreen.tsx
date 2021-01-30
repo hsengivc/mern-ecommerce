@@ -4,16 +4,26 @@ import { Row, Col } from "react-bootstrap";
 import { Product, Loader, Message } from "../components";
 import { listProducts } from "../store/actions";
 import { DispatchType, ReduxStates } from "../store/types";
+import { RouteComponentProps } from "react-router-dom";
 
-export const HomeScreen = () => {
+interface MatchParams {
+  keyword: string;
+}
+interface HomeScreenProps extends RouteComponentProps<MatchParams> {}
+
+export const HomeScreen = ({
+  match: {
+    params: { keyword },
+  },
+}: HomeScreenProps) => {
   const dispatch = useDispatch<DispatchType>();
   const { products, loading, error } = useSelector(
     (state: ReduxStates) => state.ProductList
   );
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   const productsList = () => {
     if (loading) return <Loader />;
