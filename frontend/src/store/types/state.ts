@@ -129,6 +129,12 @@ export interface OrderDeliverState {
   success?: boolean;
   error?: any;
 }
+
+export interface ProductCreateReviewState {
+  success?: boolean;
+  loading?: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -149,6 +155,7 @@ export interface ReduxStates {
   ProductUpdate: ProductUpdateState;
   OrderList: OrderListState;
   OrderDeliver: OrderDeliverState;
+  ProductReview: ProductCreateReviewState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;

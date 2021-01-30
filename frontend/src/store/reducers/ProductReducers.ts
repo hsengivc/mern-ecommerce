@@ -9,6 +9,8 @@ import {
   ProductCreateActionTypes,
   ProductUpdateState,
   ProductUpdateActionTypes,
+  ProductCreateReviewState,
+  ProductCreateReviewActionTypes,
 } from "../types";
 import {
   ProductListActions,
@@ -16,6 +18,7 @@ import {
   ProductDeleteActions,
   ProductCreateActions,
   ProductUpdateActions,
+  ProductCreateReviewActions,
 } from "../enums";
 
 const initialListState: ProductListState = {
@@ -147,6 +150,33 @@ export const productUpdateReducer = (
         error: action.payload,
       };
     case ProductUpdateActions.PRODUCT_UPDATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+const initialProductCreateReviewState: ProductCreateReviewState = {
+  loading: false,
+};
+
+export const productCreateReviewReducer = (
+  state: ProductCreateReviewState = initialProductCreateReviewState,
+  action: ProductCreateReviewActionTypes
+) => {
+  switch (action.type) {
+    case ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_REQUEST:
+      return { loading: true };
+    case ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_SUCCESS:
+      return {
+        loading: initialProductCreateReviewState.loading,
+        success: true,
+      };
+    case ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_FAIL:
+      return {
+        error: action.payload,
+      };
+    case ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_RESET:
       return {};
     default:
       return state;

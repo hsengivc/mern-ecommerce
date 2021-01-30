@@ -6,6 +6,7 @@ import {
   ProductDeleteActions,
   ProductCreateActions,
   ProductUpdateActions,
+  ProductCreateReviewActions,
 } from "../enums";
 import { authConfig, errorHandler } from "../utils";
 
@@ -106,6 +107,32 @@ export const updateProduct = (
   } catch (error) {
     dispatch({
       type: ProductUpdateActions.PRODUCT_UPDATE_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const createProductReview = (
+  prductId: string,
+  review: { rating: number; comment: string }
+): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_REQUEST,
+    });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    await axios.post(
+      `/api/products/${prductId}/reviews`,
+      review,
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: ProductCreateReviewActions.PRODUCT_CREATE_REVIEW_FAIL,
       payload: errorHandler(error),
     });
   }

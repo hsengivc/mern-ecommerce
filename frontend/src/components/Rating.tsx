@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 
 interface IRatingProps {
   value: number;
-  text: string;
+  text?: string;
   color?: string;
 }
 
