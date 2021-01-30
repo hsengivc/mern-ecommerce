@@ -18,6 +18,8 @@ import {
   productDeleteReducer,
   productCreateReducer,
   productUpdateReducer,
+  orderListReducer,
+  orderDeliverReducer,
 } from "./store/reducers";
 import { ReduxStates } from "./store/types";
 
@@ -39,6 +41,8 @@ const reducer = combineReducers<ReduxStates>({
   ProductDelete: productDeleteReducer,
   ProductCreate: productCreateReducer,
   ProductUpdate: productUpdateReducer,
+  OrderList: orderListReducer,
+  OrderDeliver: orderDeliverReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems");

@@ -1,15 +1,21 @@
 import {
   CreateOrderAction,
   MyOrderListAction,
+  OrderDeliverActions,
   OrderDetailsAction,
+  OrderListActions,
   OrderPayAction,
 } from "../enums";
 import {
   CreateOrderState,
   MyOrderListState,
   OrderCreateAction,
+  OrderDeliverActionTypes,
+  OrderDeliverState,
   OrderDetailsState,
   OrderDetaislActionType,
+  OrderListActionTypes,
+  OrderListState,
   OrderPayActionType,
   OrderPayState,
 } from "../types";
@@ -95,6 +101,49 @@ export const myOrderListReducer = (
       return { loading: false, error: action.payload, orders: state.orders };
     case MyOrderListAction.MY_ORDER_LIST_RESET:
       return { loading: false, orders: [] };
+    default:
+      return state;
+  }
+};
+
+const orderListInitialState: OrderListState = {
+  orders: [],
+  loading: false,
+};
+
+export const orderListReducer = (
+  state: OrderListState = orderListInitialState,
+  action: OrderListActionTypes
+) => {
+  switch (action.type) {
+    case OrderListActions.ORDER_LIST_REQUEST:
+      return { loading: true, orders: state.orders };
+    case OrderListActions.ORDER_LIST_SUCCESS:
+      return { loading: false, orders: action.payload };
+    case OrderListActions.ORDER_LIST_FAIL:
+      return { loading: false, error: action.payload, orders: state.orders };
+    default:
+      return state;
+  }
+};
+
+const orderDeliverInitialState: OrderDeliverState = {
+  loading: false,
+};
+
+export const orderDeliverReducer = (
+  state: OrderDeliverState = orderDeliverInitialState,
+  action: OrderDeliverActionTypes
+) => {
+  switch (action.type) {
+    case OrderDeliverActions.ORDER_DELIVER_REQUEST:
+      return { ...state, loading: true };
+    case OrderDeliverActions.ORDER_DELIVER_SUCCESS:
+      return { loading: false, success: true };
+    case OrderDeliverActions.ORDER_DELIVER_FAIL:
+      return { loading: false, error: action.payload };
+    case OrderDeliverActions.ORDER_DELIVER_RESET:
+      return {};
     default:
       return state;
   }

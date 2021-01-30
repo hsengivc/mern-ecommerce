@@ -3,7 +3,9 @@ import {
   CartActions,
   CreateOrderAction,
   MyOrderListAction,
+  OrderDeliverActions,
   OrderDetailsAction,
+  OrderListActions,
   OrderPayAction,
 } from "../enums";
 import {
@@ -13,6 +15,7 @@ import {
   OrderDetails,
   PaymentResult,
   MyOrderList,
+  OrderList,
 } from "../types";
 import { authConfig, errorHandler } from "../utils";
 
@@ -115,6 +118,51 @@ export const myOrderList = (): ActionType => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: MyOrderListAction.MY_ORDER_LIST_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const listOrders = (): ActionType => async (dispatch, getState) => {
+  try {
+    dispatch({ type: OrderListActions.ORDER_LIST_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    const { data } = await axios.get<OrderList[]>(
+      `/api/orders/`,
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: OrderListActions.ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderListActions.ORDER_LIST_FAIL,
+      payload: errorHandler(error),
+    });
+  }
+};
+
+export const deliverOrder = (orderId: string): ActionType => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: OrderDeliverActions.ORDER_DELIVER_REQUEST });
+    const { userInfo } = getState().UserLogin;
+    if (!userInfo?.token) throw new Error("Token is not valid");
+    await axios.put(
+      `/api/orders/${orderId}/deliver`,
+      {},
+      authConfig(userInfo.token)
+    );
+    dispatch({
+      type: OrderDeliverActions.ORDER_DELIVER_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderDeliverActions.ORDER_DELIVER_FAIL,
       payload: errorHandler(error),
     });
   }

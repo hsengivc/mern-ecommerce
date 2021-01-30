@@ -9,6 +9,7 @@ import {
   Product,
   CreateOrder,
   OrderDetails,
+  OrderList,
 } from ".";
 import { MyOrderList } from "./MyOrderList";
 
@@ -117,6 +118,17 @@ export interface ProductUpdateState {
   loading?: boolean;
   error?: any;
 }
+export interface OrderListState {
+  orders: OrderList[];
+  loading: boolean;
+  error?: any;
+}
+
+export interface OrderDeliverState {
+  loading?: boolean;
+  success?: boolean;
+  error?: any;
+}
 export interface ReduxStates {
   ProductList: ProductListState;
   ProductDetails: ProductDetailsState;
@@ -135,6 +147,8 @@ export interface ReduxStates {
   ProductDelete: ProductDeleteState;
   ProductCreate: ProductCreateState;
   ProductUpdate: ProductUpdateState;
+  OrderList: OrderListState;
+  OrderDeliver: OrderDeliverState;
 }
 
 export type DispatchType = ThunkDispatch<ReduxStates, unknown, Action<string>>;
