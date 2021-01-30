@@ -5,9 +5,11 @@
   "main": "server.ts",
   "type": "module",
   "scripts": {
-    "start": "ts-node-dev --respawn backend/server.ts",
+    "dev": "ts-node-dev --respawn backend/server.ts",
+    "start": "ts-node backend/server.ts",
     "data:import": "ts-node-dev backend/seeder.ts",
-    "data:destroy": "ts-node-dev backend/seeder.ts -d"
+    "data:destroy": "ts-node-dev backend/seeder.ts -d",
+    "heroku-postbuild": "tsc && NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +24,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.10",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
