@@ -21,7 +21,7 @@ export interface IReview {
 }
 
 export interface ProductWithReview extends IProduct {
-  user: string;
+  user: UserDocument;
   reviews: IReview[];
 }
 

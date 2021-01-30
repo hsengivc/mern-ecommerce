@@ -8,6 +8,6 @@ export interface IUser {
 }
 
 export interface UserDocument extends IUser, Document {
-  matchPassword: (enteredPassword: string) => Promise<boolean>;
+  matchPassword: (enteredPassword: string) => Promise<Boolean>;
 }
 export interface UserModel extends Model<UserDocument> {}

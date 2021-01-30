@@ -1,4 +1,3 @@
-import { Document, Model } from "mongoose";
 import { IProduct } from "../types";
 
 const products: IProduct[] = [
